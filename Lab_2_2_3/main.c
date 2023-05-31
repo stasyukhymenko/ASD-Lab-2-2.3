@@ -66,14 +66,23 @@ void mulmr(double k, double** arr, int n) {
 }
 
 double** graphUndirected(double** arr, int n) {
+    double** undirectedArr = (double**)malloc(n * sizeof(double*));
+    for (int i = 0; i < n; i++) {
+        undirectedArr[i] = (double*)malloc(n * sizeof(double));
+        for (int j = 0; j < n; j++) {
+            undirectedArr[i][j] = arr[i][j];
+        }
+    }
+
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (arr[i][j] == 1 && arr[j][i] == 0) {
-                arr[j][i] = 1;
+            if (undirectedArr[i][j] == 1 && undirectedArr[j][i] == 0) {
+                undirectedArr[j][i] = 1;
             }
         }
     }
-    return arr;
+
+    return undirectedArr;
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -167,17 +176,23 @@ void arrow(int x, int y, int x2, int y2)
 {
     HPEN ArrowPen = CreatePen(PS_SOLID, 2, RGB(56, 176, 0));
     HPEN KPen = CreatePen(PS_SOLID, 1, RGB(56, 176, 0));
+
     SelectObject(hdc, ArrowPen);
+
     float theta = atan2((int)y2 - (int)y, (int)x2 - (int)x);
     float x_intsct = (int)x2 - (int)16 * cos(theta);
     float y_intsct = (int)y2 - (int)16 * sin(theta);
+
     int arrowLen = 15;
     int arrowX = x_intsct - arrowLen * cos(theta + PI / 8);
     int arrowY = y_intsct - arrowLen * sin(theta + PI / 8);
+
     MoveToEx(hdc, x_intsct, y_intsct, NULL);
     LineTo(hdc, arrowX, arrowY);
+
     arrowX = x_intsct - arrowLen * cos(theta - PI / 8);
     arrowY = y_intsct - arrowLen * sin(theta - PI / 8);
+
     MoveToEx(hdc, x_intsct, y_intsct, NULL);
     LineTo(hdc, arrowX, arrowY);
     SelectObject(hdc, KPen);
@@ -200,10 +215,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
         int bY, bX;
         int side = n / 4;
         int dx = 25, dy = 25, dtx = 8;
+
         HPEN BPen = CreatePen(PS_SOLID, 2, RGB(201, 24, 109));
         HPEN KPen = CreatePen(PS_SOLID, 1, RGB(255, 241, 230));
         HPEN PenThick = CreatePen(PS_SOLID, 1, RGB(56, 176, 0));
         SelectObject(hdc, BPen);
+
         double fi = 0.0;
         int x = 0, y = 0;
 
