@@ -174,8 +174,8 @@ PAINTSTRUCT ps;
 
 void arrow(int x, int y, int x2, int y2)
 {
-    HPEN ArrowPen = CreatePen(PS_SOLID, 2, RGB(56, 176, 0));
-    HPEN KPen = CreatePen(PS_SOLID, 1, RGB(56, 176, 0));
+    HPEN ArrowPen = CreatePen(PS_SOLID, 2, RGB(85, 0, 255));
+    HPEN KPen = CreatePen(PS_SOLID, 1, RGB(255, 241, 230));
 
     SelectObject(hdc, ArrowPen);
 
@@ -218,7 +218,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
 
         HPEN BPen = CreatePen(PS_SOLID, 2, RGB(201, 24, 109));
         HPEN KPen = CreatePen(PS_SOLID, 1, RGB(255, 241, 230));
-        HPEN PenThick = CreatePen(PS_SOLID, 1, RGB(56, 176, 0));
+        HPEN PenThick = CreatePen(PS_SOLID, 1, RGB(255, 241, 230));
         SelectObject(hdc, BPen);
 
         double fi = 0.0;
